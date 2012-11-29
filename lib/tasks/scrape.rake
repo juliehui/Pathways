@@ -13,25 +13,21 @@ $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 
 
 task :scrape => :environment do
-	# Fill the keys and secrets you retrieved after registering your app
-	# is part of the scraper code
-	profile = Linkedin::Profile.get_profile('http://www.linkedin.com/profile/view?id=137603922&locale=en_US&trk=tyah')
-	#puts profile.inspect
+
+# , [:url, :queue] 
+#  |t, args|
 
 
-	# is part of the linkedin api calls
-	client = LinkedIn::Client.new('x7ibdmirpt9l', '5LENvBwcdRgu5ZIH')
-	puts client
-	rtoken = client.request_token.token
-	rsecret = client.request_token.secret
-	read = puts client.authorize_from_access("a6665d58-4912-41ec-b0b6-3ac172f0e417", "62f20bb7-2b7a-411c-9f5b-e45e5e3a492f")
-	puts read
+	profile = Linkedin::Profile.get_profile('http://www.linkedin.com/in/fitzcn')
 
-	test = client.profile(:id => 'fitzcn')
+	queue = []
 
-	puts test
-
-
+	for i in 0..9 do
+		url = profile.recommended_visitors[i][:link].value
+		urlSplit = url.split("?")
+		urlNew = urlSplit[0]
+		queue[i] =urlNew
+	end
 end
 
 
@@ -59,7 +55,7 @@ queue.enq(profile)
 #      addToDB(currentProf)  #if not found, add to database
 #      num += 1            #increase number in database
 #      list = currentProf.recommended_visitors
-#      enqnum = 0
+#     enqnum = 0
 #      queue.enq(list[enqnum :link]), enqnum += 1 while enqnum < list.length
 #    end
 #end
