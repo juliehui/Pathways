@@ -1,0 +1,5 @@
+#grab a profile
+profile = Linkedin::Profile.get_profile('http://www.linkedin.com/in/fitzcn')
+
+
+
