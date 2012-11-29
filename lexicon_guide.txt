@@ -38,6 +38,7 @@ profile.past_companies[1][:past_company_website]
 
 #past company [1] description of position //PROBABLY NIL FOR A LOT OF PEOPLE
 profile.past_companies[1][:description]
+
   #Example
   #  [
   #     [0] {
@@ -54,9 +55,24 @@ profile.past_companies[1][:description]
   #     }
   # ]
 
-
+#array hash of current job companies and job profile
 profile.current_companies
-  #Array of hash containing its current job companies and job profile
+
+#array object of data for current company
+profile.current_companies[0]
+
+#current position title
+profile.current_companies[0][:title]
+
+#current company name
+profile.current_companies[0][:current_company]
+
+#current company link
+profile.current_companies[0][:current_company_url]
+
+#description of position
+profile.current_companies[0][:description]
+
   #Example
   #  [
   #    [0] {
@@ -74,16 +90,29 @@ profile.current_companies
   #        }
   #  ]
 
-profile.linkedin_url        #url of the profile
+#url of the profile
+profile.linkedin_url        
 
+#user-defined websites
 profile.websites
+
   #Array of websites 
   #[
   # [0] "http://www.yatishmehta.in"
   #]
 
+#Array of hashes containing group name and link
 profile.groups
-  #Array of hashes containing group name and link
+
+#array object of a group
+profile.groups[0]
+
+#name of group
+profile.groups[0][:name]
+
+#link of a group
+profile.groups[0][:link]  
+
   # [
   #     [ 0] {
   #         :name => "Business on Rails",
@@ -107,8 +136,21 @@ profile.groups
   #     },
   # ]
 
+#Array of hashes for eduction
 profile.education
-  #Array of hashes for eduction
+
+#array-object of an education institution
+profile.education[0]
+
+#name an education institution
+profile.education[0][:name]
+
+#description of degree
+profile.education[0][:description]
+
+#time at education institution
+profile.education[0][:period]
+  
   # [
   #     [0] {
   #                :name => "Vishwakarma Institute of Technology",
@@ -122,8 +164,21 @@ profile.education
   #     }
   # ]
 
+#array of recommended profiles to visit
 profile.recommended_visitors
-  #Its the list of visitors "Viewers of this profile also viewed..."
+
+#link of recommended profile
+profile.recommended_visitors[0]
+
+#name of user of recommended profile
+profile.recommended_visitors[0][:name]
+
+#title of position of user of recommended profile
+profile.recommended_visitors[0][:title]
+
+#name of company of current position of user of recommended profile
+profile.recommended_visitors[0][:company]
+
   #attr_accessor :recommended_visitors = [
   #    [0] {
   #           :link =>  href="http://in.linkedin.com/in/nileshavhad?trk=pub-pbmap",
