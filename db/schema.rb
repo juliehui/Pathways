@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(:version => 20121127032738) do
     t.string   "degree"
     t.string   "major"
     t.string   "minor"
+    t.integer  "person_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "interests", :force => true do |t|
     t.string   "interest"
+    t.integer  "person_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -50,12 +52,14 @@ ActiveRecord::Schema.define(:version => 20121127032738) do
     t.string   "title"
     t.string   "company"
     t.string   "location"
+    t.integer  "person_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "skills", :force => true do |t|
-    t.integer  "skills"
+    t.string   "skills"
+    t.integer  "person_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
