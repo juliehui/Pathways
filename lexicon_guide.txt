@@ -1,6 +1,5 @@
 profile.recommended_visitors[2][:link].value
 
-
 profile = Linkedin::Profile.get_profile('http://in.linkedin.com/pub/yatish-mehta/22/460/a86')
 
 #the First name of the contact
