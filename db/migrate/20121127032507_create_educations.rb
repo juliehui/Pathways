@@ -8,6 +8,7 @@ class CreateEducations < ActiveRecord::Migration
       t.string :major
       t.string :minor
       t.integer :person_id
+      
 
       t.timestamps
     end

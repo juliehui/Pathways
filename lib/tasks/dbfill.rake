@@ -12,7 +12,12 @@ $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 ###########################################################
 
 
+#profile = Linkedin::Profile.get_profile('http://www.linkedin.com/pub/meg-mahon/5a/731/a45')
+
+
+
 task :dbfill => :environment do
+
 
 
 	file = File.new("names.txt", "r")
@@ -24,125 +29,182 @@ task :dbfill => :environment do
     	profile = Linkedin::Profile.get_profile(line)
 
     	puts line
-    	puts queue[counter]
+
     	counter = counter + 1
-	
+
+
 	#initialize person by name
-		person = Person.find_or_create_by_name(profile.first_name + " " + profile.last_name)
+		  #person = Person.find_or_create_by_name(line)
 
+      if (profile.first_name.nil? ) == false 
+        name = (profile.first_name + " " + profile.last_name)  
+        end
+
+    #grab all fields about individual available through scraper
+      if profile.first_name.nil? == false     
+        first_name = profile.first_name
+      else 
+        first_name = ""
+        end
+  
+      if profile.last_name.nil? == false     
+        last_name = profile.last_name
+      else 
+        last_name = ""
+        end
+      
+      if profile.location.nil? == false
+        location = profile.location
+      else 
+        location = ""
+        end
+      
+      if profile.country.nil? == false
+        country = profile.country
+      else 
+        country = ""
+        end
+      
+      if profile.industry.nil? == false
+        industry = profile.industry
+      else 
+        industry = ""
+        end
+      
+      if profile.websites.nil? == false
+        pers_website = profile.websites[0]    
+      else 
+        pers_website = ""
+      end
+    
+      person = Person.create({  
+          :name => name,
+          :profile_url => line,
+          :first_name => first_name,
+          :last_name => last_name,
+          :pers_website => pers_website,
+          :industry => industry,
+          :location => location,
+          :country  => country
+          })
+      
+
+  
     #group school data
+    if profile.education.nil? == false 
     profileEducation = profile.education
     profileEducation.each do |n|
-      person.educations.create({
-        :school => n[:name],
-        :degree => n[:description]    
+      #grab period for start and end dates
+
+      #dates
+      if n[:period].nil? == false 
+        period = n[:period]
+      else 
+        period = ""
+      end
+
+      #school name  
+      if n[:name].nil? == false 
+        name = n[:name]
+      else 
+        name = ""
+      end
+
+      #degree description  
+      if n[:description].nil? == false 
+        degree = n[:description] 
+      else 
+        degree = ""
+      end
+
+
+      #populate fields for a given school
+      person.educations.create({  
+        :start_date => period,
+        :school => name,
+        :degree => degree
         })      
-TODO 
-      #time at education institution
-#      n[:period]
     end
-		person.educations.create({:school => profile.education[0][:name]})
+  end
+  
 
-		person.educations.create({:school => "Harvard", :degree => "Phds Physics and everything"})
-
-
-
-    #url of the profile
-    profile.linkedin_url
-
-    #the First name of the contact
-    profile.first_name          
-
-    #the last name of the contact
-    profile.last_name           
-
-    #the linkedin job title
-    profile.title               
-
-    #the location of the contact
-    profile.location           
-
-    #the country of the contact
-    profile.country             
-
-    #the domain for which the contact belongs
-    profile.industry            
-
-  	#create loop to grab data from past companies
-  	pastCompanies = profile.past_companies
-  	pastCompanies.each do |n|
-  	  #past company [1] name of company  
-  	 puts n[:past_company]
-  	  #past company [1] title of position
-  	  puts n[:past_title]
-  	  #past company [1] website of company
-  	  puts n[:past_company_website]
-  	  #past company [1] description of position //PROBABLY NIL FOR A LOT OF PEOPLE
-  	  puts n[:description]
+    if profile.current_companies.nil? == false 
+		#loop for current positions data
+		currentPositions = profile.current_companies
+    currentPositions.each do |n|   
+      
+      #dates
+      if n[:current_title].nil? == false 
+        title = n[:current_title]
+      else 
+        title = ""
+      end 
+        
+      #school name  
+      if n[:current_company].nil? == false 
+        company = n[:current_company]
+      else 
+        company = ""
+      end 
+        
+      #degree description  
+      if n[:description].nil? == false 
+        description = n[:description] 
+      else 
+        description = ""
+      end 
+        
+      
+       
+      #populate fields for a given school
+      person.positions.create({  
+        :title => title,
+        :company => company,
+        :description => description
+        })      
     end
+  end
+    
+    
+    if profile.past_companies.nil? == false
+    
+		#loop for past positions data
+    pastPositions = profile.past_companies
+    pastPositions.each do |n|    
+      
+      #dates
+      if n[:past_title].nil? == false 
+        title = n[:past_title]
+      else 
+        title = ""
+      end 
 
-    #create loop to grab data from current companies lis
-    currentCompanies = profile.current_companies
-    currentCompanies.each do |n|
-      #current position title
-      puts n[:title]
-      #current company name
-      puts n[:current_company]
-      #current company link
-      puts n[:current_company_url]
-      #description of position
-      puts n[:description]
+      #school name  
+      if n[:past_company].nil? == false 
+        company = n[:past_company]
+      else 
+        company = ""
+      end 
+
+      #degree description  
+      if n[:description].nil? == false 
+        description = n[:description] 
+      else 
+        description = ""
+      end 
+
+      
+      
+      #populate fields for a given school
+      person.positions.create({  
+        :title => title,
+        :company => company,
+        :description => description
+        })      
     end
-
-
-    profileGroups = profile.groups
-    profileGroups.each do |n|
-      #name of group
-      puts n[:name]
-      #link of a group
-      puts n[:link]
-    end
-
-    profileEducation = profile.education
-    profileEducation.each do |n|
-      #name an education institution
-      puts n[:name]
-      #description of degree
-      puts n[:description]
-      #time at education institution
-      puts n[:period]
-    end
-		
-
-
-		event.tweets.create({
-	          :text => parsed_json["text"],
-	          :favorited => parsed_json["favorited"],
-	          :in_reply_to_user_id_str => parsed_json["in_reply_to_user_id_str"],
-	          #:geo => "null",an
-	          :in_reply_to_screen_name => parsed_json["in_reply_to_screen_name"],
-	          :in_reply_to_status_id => parsed_json["in_reply_to_status_id"],
-	          :in_reply_to_user_id => parsed_json["in_reply_to_user_id"],
-	          :source => parsed_json["source"],
-	          :retweet_count => parsed_json["retweet_count"],
-	          :truncated => parsed_json["truncated"],
-	          #:id_str => parsed_json["id_str"],
-	          #:hashtags => parsed_json["entities"]["hashtags"][1],
-	          :retweeted => parsed_json["retweeted"],
-	          :created_at => parsed_json["created_at"],
-	          #:tweet_id => parsed_json["id"],
-	          #:user_mentions => parsed_json["user_mentions"],
-	          #:geo_long => parsed_json["geo_long"],
-	          #:geo_lat => parsed_json["geo_lat"],
-	          :statuses_count => parsed_json["user"]["statuses_count"],
-	          :country => parsed_json["user"]["location"],
-	          #not real? :possibly_sensitive => parsed_json["possibly_sensitive"],
-	          :expanded_url => expanded,
-	          :verified => parsed_json["user"]["verified"],
-	          :friends_count => parsed_json["user"]["friends_count"],
-	          :screenname => parsed_json["screenname"]
-	          # :user_home_location => parsed_json["user_home_location"]
-	          })
-	end
+  end
+  puts person
+  puts person.educations
+  puts person.positions
 end
-
+end

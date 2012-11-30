@@ -1,8 +1,4 @@
-require 'linkedin-scraper'
- 
 
-lib_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 
 ########################################################
 # => Make sure you fill out all the required fields
@@ -11,7 +7,7 @@ $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 #profile = Linkedin::Profile.get_profile('http://www.linkedin.com/in/fitzcn')
 
 
-
+=begin
 task :scrape => :environment do
 
 #get list
@@ -91,4 +87,8 @@ list.each do |n|
 #  call various commands from lexicon.txt to populate fields in database 
 
 end
+
+<<<<<<< HEAD
+=======
+=end
 
