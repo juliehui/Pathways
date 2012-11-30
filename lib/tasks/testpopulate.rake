@@ -1,3 +1,5 @@
+=begin
+
 require 'linkedin-scraper'
  
 
@@ -84,3 +86,4 @@ puts profile.industry
   end
   
 #  call various commands from lexicon.txt to populate fields in database 
+=end

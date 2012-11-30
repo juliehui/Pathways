@@ -27,14 +27,92 @@ task :dbfill => :environment do
     	puts queue[counter]
     	counter = counter + 1
 	
+	#initialize person by name
+		person = Person.find_or_create_by_name(profile.first_name + " " + profile.last_name)
 
-		person = Person.find_or_create_by_name("Mike")
-
-		person.age = 23
-
-		person.educations.create({:school => "Brandeis"})
+    #group school data
+    profileEducation = profile.education
+    profileEducation.each do |n|
+      person.educations.create({
+        :school => n[:name],
+        :degree => n[:description]    
+        })      
+TODO 
+      #time at education institution
+#      n[:period]
+    end
+		person.educations.create({:school => profile.education[0][:name]})
 
 		person.educations.create({:school => "Harvard", :degree => "Phds Physics and everything"})
+
+
+
+    #url of the profile
+    profile.linkedin_url
+
+    #the First name of the contact
+    profile.first_name          
+
+    #the last name of the contact
+    profile.last_name           
+
+    #the linkedin job title
+    profile.title               
+
+    #the location of the contact
+    profile.location           
+
+    #the country of the contact
+    profile.country             
+
+    #the domain for which the contact belongs
+    profile.industry            
+
+  	#create loop to grab data from past companies
+  	pastCompanies = profile.past_companies
+  	pastCompanies.each do |n|
+  	  #past company [1] name of company  
+  	 puts n[:past_company]
+  	  #past company [1] title of position
+  	  puts n[:past_title]
+  	  #past company [1] website of company
+  	  puts n[:past_company_website]
+  	  #past company [1] description of position //PROBABLY NIL FOR A LOT OF PEOPLE
+  	  puts n[:description]
+    end
+
+    #create loop to grab data from current companies lis
+    currentCompanies = profile.current_companies
+    currentCompanies.each do |n|
+      #current position title
+      puts n[:title]
+      #current company name
+      puts n[:current_company]
+      #current company link
+      puts n[:current_company_url]
+      #description of position
+      puts n[:description]
+    end
+
+
+    profileGroups = profile.groups
+    profileGroups.each do |n|
+      #name of group
+      puts n[:name]
+      #link of a group
+      puts n[:link]
+    end
+
+    profileEducation = profile.education
+    profileEducation.each do |n|
+      #name an education institution
+      puts n[:name]
+      #description of degree
+      puts n[:description]
+      #time at education institution
+      puts n[:period]
+    end
+		
 
 
 		event.tweets.create({

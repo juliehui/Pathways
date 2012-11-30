@@ -91,3 +91,4 @@ list.each do |n|
 #  call various commands from lexicon.txt to populate fields in database 
 
 end
+
