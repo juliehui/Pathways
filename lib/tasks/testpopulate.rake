@@ -11,7 +11,7 @@ $LOAD_PATH.unshift lib_path unless $LOAD_PATH.include?(lib_path)
 #profile = Linkedin::Profile.get_profile('http://www.linkedin.com/in/fitzcn')
 
 
-
+=begin
 task :scrape => :environment do
 
 profile = Linkedin::Profile.get_profile('http://www.linkedin.com/in/fitzcn')
@@ -84,3 +84,5 @@ puts profile.industry
   end
   
 #  call various commands from lexicon.txt to populate fields in database 
+
+=end

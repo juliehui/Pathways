@@ -42,6 +42,11 @@ ActiveRecord::Schema.define(:version => 20121127032738) do
     t.string   "industry"
     t.integer  "num_connections"
     t.string   "gender"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "profile_url"
+    t.string   "location"
+    t.string   "country"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -53,8 +58,10 @@ ActiveRecord::Schema.define(:version => 20121127032738) do
     t.string   "company"
     t.string   "location"
     t.integer  "person_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "website"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "skills", :force => true do |t|

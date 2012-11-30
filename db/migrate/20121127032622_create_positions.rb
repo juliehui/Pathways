@@ -7,6 +7,8 @@ class CreatePositions < ActiveRecord::Migration
       t.string :company
       t.string :location
       t.integer :person_id
+      t.string :website
+      t.string :description
 
       t.timestamps
     end
