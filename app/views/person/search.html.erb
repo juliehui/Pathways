@@ -1,0 +1,57 @@
+ <%@list = Person.joins(:educations).joins(:positions).where(:educations => {:school => 'Northwestern University'}).where(:positions => {:company => 'Accenture'}) %>
+
+<% @list = @list.uniq %> 
+
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['', 'Schools', 'Jobs',],
+          <% @list.each do |person| %>
+          ['<%= person.name %>', <%= person.educations.size %>,  <%= person.positions.size %>],
+		  <% end %>
+          ['',      0,  0]
+        ]);
+
+        var options = {
+          title: 'Pathways',
+          vAxis: {title: 'People',  titleTextStyle: {color: 'red'}},
+          isStacked: 'true'
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+<h1>Pathways</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>FirstName</th>
+    <th>Schools</th>
+    <th>URL</th>
+    <th>Jobs</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @list = @list.uniq %>  
+<% @list.each do |person| %>
+  <tr>
+    <td><%= person.name %></td>
+    <td><%= person.first_name %></td>
+    <td><%= person.educations.size %></td>
+   	<td><a href="<%= person.profile_url %>"> <%= person.profile_url %> </a></td>
+    <td><%= person.positions.size %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<div id="chart_div" style="width: 1100px; height: 900px;"></div>
