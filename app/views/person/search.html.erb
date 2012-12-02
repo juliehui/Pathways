@@ -8,13 +8,24 @@
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['', 'Schools', 'Jobs',],
+        var data = new google.visualization.DataTable();
+
+       data.addColumn('string', 'Name'); // Implicit domain column.
+       data.addColumn('number', 'Schools'); // Implicit data column.
+       data.addColumn({type:'string', role:'tooltip'});
+       data.addColumn('number', 'Jobs'); // Implicit data column.
+       data.addColumn({type:'string', role:'tooltip'});
+
+       data.addRows([
           <% @list.each do |person| %>
-          ['<%= person.name %>', <%= person.educations.size %>,  <%= person.positions.size %>],
+          ['<%= person.name %>', 
+           <%= person.educations.size %>, 
+           '<%= person.educations[0].school %>', 
+           <%= person.positions.size %>, 
+           '<%= person.positions[0].company %>'],
 		  <% end %>
-          ['',      0,  0]
-        ]);
+          ['',  0,  '', 0,'']]
+        );
 
         var options = {
           title: 'Pathways',
