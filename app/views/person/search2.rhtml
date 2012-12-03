@@ -1,3 +1,5 @@
+for copying and pasting bits of code while working on search.html.erb
+
 <%@list = Person.joins(:educations).joins(:positions).where(:educations => {:school => 'Massachusetts Institute of Technology'}).where(:positions => {:company => 'Google'}) %>
 
 <% @list = @list.uniq %> 
@@ -14,20 +16,20 @@
 
        data.addColumn('string', 'Name'); // Name of person
        data.addColumn('number', 'Schools'); // Num Schools
-       data.addColumn({'type': 'string', 'role': 'tooltip'}); //tooltip for schools
+       data.addColumn({'type': 'string', 'role': 'tooltip'}); //html active tooltip for schools; makes whole bar one tooltip
        data.addColumn('number', 'Jobs'); // Num of Jobs
-       data.addColumn({'type': 'string', 'role': 'tooltip'}); //tooltip for positions
+       data.addColumn({'type': 'string', 'role': 'tooltip'}); //html active tooltip for positions; makes whole bar one tooltip
 
        data.addRows([
           <% @list.each do |person| %>
             <% schoolNames = '' %>
             <% person.educations.each do |place| %>
-              <% schoolNames += place.school + '\n' %>
+              <% schoolNames += place.school + '; ' %>
             <% end %>
 
             <% companyNames = '' %>
             <% person.positions.each do |positions| %>
-              <% companyNames += positions.company + '\n' %>
+              <% companyNames += positions.company + '; ' %>
             <% end %>
 
           [
