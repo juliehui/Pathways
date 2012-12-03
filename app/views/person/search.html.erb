@@ -22,12 +22,12 @@
           <% @list.each do |person| %>
             <% schoolNames = '' %>
             <% person.educations.each do |place| %>
-              <% schoolNames += place.school + '\n' %>
+              <% schoolNames += place.school + ': ' + place.degree + '\n' %>
             <% end %>
 
             <% companyNames = '' %>
             <% person.positions.each do |positions| %>
-              <% companyNames += positions.company + '\n' %>
+              <% companyNames += positions.company + ': ' + positions.title + '\n' %>
             <% end %>
 
           [

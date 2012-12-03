@@ -12,7 +12,7 @@ gem 'linkedin-scraper'
 #gem 'rd_searchlogic', :require => 'searchlogic', :git => 'git://github.com/railsdog/searchlogic.git'
 #gem "meta_search", :git => "git://github.com/ernie/meta_search.git" # Track git repo
 
-gem 'thinking-sphinx', '2.0.10'
+
 
 #gem 'ransack'
 # Gems used only for assets and not required
