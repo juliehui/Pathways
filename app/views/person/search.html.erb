@@ -1,4 +1,4 @@
-<%@list = Person.joins(:educations).joins(:positions).where(:educations => {:school => 'Massachusetts Institute of Technology'}).where(:positions => {:company => 'Google'}) %>
+<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", "%northwestern%").where("positions.company like ?", "%google%") %>
 
 <% @list = @list.uniq %> 
 
