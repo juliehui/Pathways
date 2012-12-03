@@ -1,25 +1,10 @@
-<h1>Person#index</h1>
-<p>Find me in app/views/person/index.html.erb</p>
+<h1>Search the Pathways!</h1>
 
-<h1>Listing persons</h1>
- 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Title</th>
-    <th>Content</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @persons = @persons.uniq %> 
-<% @persons.each do |person| %>
-  <tr>
-    <td><%= person.name %></td>
-    <td><%= person.first_name %></td>
-  </tr>
+<%= form_tag("search", :method => "get") do %>
+    <%= label_tag(:schoolSearch, "School:") %>
+    <%= text_field_tag(:schoolSearch) %>
+    <br>
+    <%= label_tag(:jobSearch, "Job:") %>
+    <%= text_field_tag(:jobSearch) %>
+    <%= submit_tag("Search") %>
 <% end %>
-</table>
- 
-<br />
-

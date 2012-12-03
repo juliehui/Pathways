@@ -1,4 +1,7 @@
-<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", "%northwestern%").where("positions.company like ?", "%google%") %>
+<% schoolQuery = "%" + params[:schoolSearch] + "%" %>
+<% jobQuery = "%" + params[:jobSearch] + "%" %>
+
+<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", schoolQuery).where("positions.company like ?", jobQuery) %>
 
 <% @list = @list.uniq %> 
 
@@ -82,4 +85,6 @@
 </table>
 
 
-<div id="chart_div" style="width: 1100px; height: 900px;"></div>
+
+
+<div id="chart_div" style="width: 1200px; height: 900px;"></div>
