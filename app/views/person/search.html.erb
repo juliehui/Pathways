@@ -25,7 +25,14 @@
           <% @list.each do |person| %>
             <% schoolNames = '' %>
             <% person.educations.each do |place| %>
-              <% schoolNames += place.school + ': ' + place.degree + '\n' %>
+              <% schoolNames += place.school %>
+              <% if (place.degree.length) > 0 %>
+                <% schoolNames += ': ' + place.degree %>                
+              <% end %>
+              <% if (place.start_date.nil?) == false %>
+                  <% schoolNames += ', ' + place.start_date %>
+                <% end %>
+              <%schoolNames += '\n' %>
             <% end %>
 
             <% companyNames = '' %>
