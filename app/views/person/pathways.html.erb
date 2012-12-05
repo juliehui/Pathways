@@ -1,7 +1,8 @@
 <% schoolQuery = "%" + params[:schoolSearch] + "%" %>
 <% jobQuery = "%" + params[:jobSearch] + "%" %>
+<% titleQuery = "%" + params[:titleSearch] + "%" %>
 
-<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", schoolQuery).where("positions.company like ?", jobQuery) %>
+<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", schoolQuery).where("positions.company like ?", jobQuery).where("positions.title like ?", titleQuery) %>
 
 <% @list = @list.uniq %> 
 
