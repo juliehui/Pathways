@@ -1,7 +1,14 @@
 Pathways::Application.routes.draw do
-  get "person/index"
+  get "person/pathways"
 
   get "person/search"
+
+  get "person/jobsearch"
+
+  get "person/jobpathways"
+
+  get "person/results"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

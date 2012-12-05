@@ -1,95 +1,27 @@
-<% schoolQuery = "%" + params[:schoolSearch] + "%" %>
-<% jobQuery = "%" + params[:jobSearch] + "%" %>
+<br />
+<br />
+<br />
 
-<%@list = Person.joins(:educations).joins(:positions).where("educations.school like ?", schoolQuery).where("positions.company like ?", jobQuery) %>
-
-<% @list = @list.uniq %> 
-
-  <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      
-      function drawChart() {
-
-        var data = new google.visualization.DataTable();
-
-       data.addColumn('string', 'Name'); // Name of person
-       data.addColumn('number', 'Schools'); // Num Schools
-       data.addColumn({'type': 'string', 'role': 'tooltip'}); //tooltip for schools
-       data.addColumn('number', 'Jobs'); // Num of Jobs
-       data.addColumn({'type': 'string', 'role': 'tooltip'}); //tooltip for positions
-
-       data.addRows([
-          <% @list.each do |person| %>
-            <% schoolNames = '' %>
-            <% person.educations.each do |place| %>
-              <% schoolNames += place.school %>
-              <% if (place.degree.length) > 0 %>
-                <% schoolNames += ': ' + place.degree %>                
-              <% end %>
-              <% if (place.start_date.nil?) == false %>
-                  <% schoolNames += ', ' + place.start_date %>
-                <% end %>
-              <%schoolNames += '\n' %>
-            <% end %>
-
-            <% companyNames = '' %>
-            <% person.positions.each do |positions| %>
-              <% companyNames += positions.company + ': ' + positions.title + '\n' %>
-            <% end %>
-
-          [
-            '<%= person.name %>', 
-            <%= person.educations.size %>, 
-            '<%= schoolNames %>',  
-            <%= person.positions.size %>, 
-            '<%= companyNames %>'
-           ],
-          <% end %>
-          ['',  0,  '', 0,'']
-        ]);
+<center><h1>Search the Pathways!</h1></center>
+<br />
+<br />
+<br />
 
 
-        var options = {
-          title: 'Pathways',
-          isStacked: 'true',
-          tooltip: {isHtml: true}
-        };
+<div class="row">
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
+	<center>
+		<form accept-charset="UTF-8" action="pathways" method="get">
 
+		    <input class="input-xxlarge" id="schoolSearch" name="schoolSearch" type="text" placeholder="Where did you go to school?" />
+		    <br />
+		    <br />
 
-    </script>
-  </head>
-<center>
-<h2>Pathways</h2>
-</center>
-<div id="chart_div" style="width: 1200px; height: 800px;"></div>
+		    <input class="input-xxlarge" id="jobSearch" name="jobSearch" type="text" placeholder="Where do you want to work?" />
+		    <br />
+		    <br />
 
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>FirstName</th>
-    <th>Schools</th>
-    <th>URL</th>
-    <th>Jobs</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @list = @list.uniq %>  
-<% @list.each do |person| %>
-  <tr>
-    <td><%= person.name %></td>
-    <td><%= person.first_name %></td>
-    <td><%= person.educations.size %></td>
-    <td><a href="<%= person.profile_url %>"> <%= person.profile_url %> </a></td>
-    <td><%= person.positions.size %></td>
-  </tr>
-<% end %>
-</table>
+		    <button class="btn btn-large btn-info btn-xxlarge" type="submit">Fetch my Pathways!</button>
+		</form>
+	</center>
+</div>

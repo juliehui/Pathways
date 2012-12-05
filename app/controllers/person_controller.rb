@@ -3,7 +3,15 @@ class PersonController < ApplicationController
 
 	end
 
-	def index
+	def pathways
+
+	end
+
+	def job
+
+	end
+
+	def jobpathways
 
 	end
 end
